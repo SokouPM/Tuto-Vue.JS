@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js 3 exercice numéro 1</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>Total : {{ total }}</p>
+        <compteur @global-increment="incrementTotal($event)"></compteur>
+        <compteur @global-increment="incrementTotal($event)"></compteur>
+        <compteur @global-increment="incrementTotal($event)"></compteur>
+    </div>
+
+    <!-- Mise en place de Vue.js 3 via le CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- Le code Vue.js -->
+    <script>
+        const Compteur = {
+            data() {
+                return {
+                    nbClics: 0
+                }
+            }, 
+            methods: {
+                incrementClic() {
+                    this.nbClics++
+                    this.$emit('global-increment', 2)
+                }
+            },
+            template: '<button @click="incrementClic()">{{ nbClics }}</button>'
+        }
+        const app = Vue.createApp({
+            data() {
+                return {
+                    total: 0,
+                }
+            },
+            components: {
+                'compteur': Compteur
+            },
+            methods: {
+                incrementTotal(value) {
+                    console.log(value)
+                    this.total += value
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

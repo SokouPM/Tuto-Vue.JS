@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js 3 exercice numéro 6</title>
+</head>
+
+<body>
+    <div id="app">
+        <label for="langage">Quels langages de programmation connaissez-vous ? </label>
+        <input type="text" id="langage" v-model="langage" @keyup.enter="addLangage()">
+        <button @click="addLangage()">Valider</button>
+
+        <ul>
+            <li v-for="(reponseLangage, index) in langageArray">
+                {{ reponseLangage }}
+                <button @click="removeLangage(index)">Supprimer</button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Mise en place de Vue.js 3 via le CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- Le code Vue.js -->
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return { 
+                    langage: '',
+                    langageArray: []
+                }
+            },
+            methods: {
+                addLangage() {
+                    if (this.langage) {
+                        this.langageArray.push(this.langage);
+                        this.langage = '';
+                    } else {
+                        alert('Merci d\'entrer un langage');
+                    }
+                },
+                removeLangage(id) {
+                    this.langageArray.splice(id, 1);
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

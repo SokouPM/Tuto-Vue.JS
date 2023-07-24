@@ -1,0 +1,24 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+}
+
+h1,
+h2,
+p {
+  text-align: center;
+}
+
+.inline-centered {
+  text-align: center;
+}
+
+.width-text {
+  margin-bottom: 2rem;
+}
+
+.inline-centered * {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}

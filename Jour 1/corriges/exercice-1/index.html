@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js 3 exercice numéro 1</title>
+</head>
+
+<body>
+    <div id="app"> 
+        <h2>Bonjour, nous sommes le {{ currentLocalDate }} et il est {{ currentLocalTime }}</h2>
+    </div>
+
+    <!-- Mise en place de Vue.js 3 via le CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- Le code Vue.js -->
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    date: new Date(),
+                }
+            },
+            computed: {
+                currentLocalDate() {
+                    return this.date.toLocaleDateString();
+                },
+                currentLocalTime() {
+                    return this.date.toLocaleTimeString();
+                }
+            }
+        });
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

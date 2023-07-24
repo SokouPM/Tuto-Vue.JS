@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuejs - Jour 1 / projet</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ title }}</h1>
+
+      <fieldset>
+        <legend>Ajouter un film à la liste</legend>
+
+        <div class="form-group">
+          <label for="title">Titre du film</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            v-bind:class="errorMessage.length && !newMovieValues.title.length && 'error-field'"
+            v-model="newMovieValues.title"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="year">Année de sortie</label>
+          <select
+            name="year"
+            id="year"
+            v-model="newMovieValues.year"
+            v-bind:class="errorMessage.length && !newMovieValues.year.toString().length && 'error-field'"
+          >
+            <option v-for="year in years" :value="year">{{ year }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="director">Réalisateur</label>
+          <input
+            type="text"
+            id="director"
+            name="director"
+            v-model="newMovieValues.director"
+            v-bind:class="errorMessage.length && !newMovieValues.director.length && 'error-field'"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="category">Catégorie</label>
+          <select
+            name="category"
+            id="category"
+            v-model="newMovieValues.category"
+            v-bind:class="errorMessage.length && !newMovieValues.category.length && 'error-field'"
+          >
+            <option v-for="category in categories" :value="category">{{ category }}</option>
+          </select>
+        </div>
+
+        <p class="error-message">{{ errorMessage }}</p>
+
+        <input @click="addMovie()" type="submit" value="Ajouter un film" />
+      </fieldset>
+
+      <div class="mobile-overflow">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-1">#</th>
+              <th class="col-2">Titre du film</th>
+              <th class="col-3">Année de sortie</th>
+              <th class="col-4">Réalisateur</th>
+              <th class="col-5">Categorie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(film, index) in moviesList" :key="index">
+              <td class="col-1">{{ index + 1 }}</td>
+              <td class="col-2">{{ film.title }}</td>
+              <td class="col-3">{{ film.year }}</td>
+              <td class="col-4">{{ film.director }}</td>
+              <td class="col-5">{{ film.category }}</td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td class="col-1" colspan="5">Total : {{ moviesList.length }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </body>
+
+  <!-- Vuejs CDN -->
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <!-- Vue.JS code  -->
+  <script>
+    const app = Vue.createApp({
+      // VueJS props
+      data() {
+        return {
+          title: "Vuejs - Jour 1 / projet",
+          categories: [
+            "Science-fiction 🚀",
+            "Fantastique 🧙‍♂️",
+            "Comédie 😂",
+            "Drame 😭",
+            "Horreur 😱",
+            "Action 🎬",
+            "Aventure 🏞️",
+            "Thriller 🔪",
+            "Policier 👮‍♂️",
+            "Animation 🐱‍👤",
+            "Documentaire 📽️",
+            "Western 🤠",
+            "Guerre ⚔️",
+            "Historique 📜",
+            "Musical 🎵",
+            "Romance 💕",
+            "Biopic 🎞️",
+            "Espionnage 🕵️‍♀️",
+            "Sport ⚽",
+            "Péplum 🏛️",
+            "Erotique 🍆",
+            "Expérimental 🧪",
+            "Autre 🤷‍♂️",
+          ],
+          years: [],
+          newMovieValues: {
+            title: "",
+            year: new Date().getFullYear(),
+            director: "",
+            category: "Science-fiction 🚀",
+          },
+          errorMessage: "",
+          moviesList: [
+            {
+              title: "Star Wars - Un nouvel espoir",
+              year: 1977,
+              director: "George Lucas",
+              category: "Science-fiction 🚀",
+            },
+            {
+              title: "Le Seigneur des anneaux - La Communauté de l'anneau",
+              year: 2001,
+              director: "Peter Jackson",
+              category: "Fantastique 🧙‍♂️",
+            },
+          ],
+        };
+      },
+
+      // VueJS  Lifecycle - mounted (DOM is ready)
+      mounted() {
+        for (let i = new Date().getFullYear(); i >= 1895; i--) {
+          this.years.push(i);
+        }
+      },
+
+      // VueJS methods
+      methods: {
+        addMovie() {
+          // Check if form values are not empty
+          if (this.newMovieValues.title && this.newMovieValues.year && this.newMovieValues.director && this.newMovieValues.category) {
+            // Add movie to the list
+            this.moviesList = [
+              ...this.moviesList, // old values
+              {
+                title: this.newMovieValues.title,
+                year: this.newMovieValues.year,
+                director: this.newMovieValues.director,
+                category: this.newMovieValues.category,
+              },
+            ];
+
+            this.resetForm();
+
+            return;
+          }
+
+          this.displayErrorMessage();
+        },
+
+        displayErrorMessage() {
+          this.errorMessage = "Veuillez remplir tous les champs du formulaire";
+        },
+
+        resetForm() {
+          this.newMovieValues.title = "";
+          this.newMovieValues.year = this.years[0];
+          this.newMovieValues.director = "";
+          this.newMovieValues.category = this.categories[0];
+          this.errorMessage = "";
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</html>

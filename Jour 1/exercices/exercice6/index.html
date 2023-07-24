@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuejs - Jour 1 / exercice 6</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ title }}</h1>
+
+      <fieldset>
+        <legend>Liste des langages</legend>
+        <label for="languages">Quels langages de programmation connaissez-vous ?</label>
+        <input type="text" id="languages" name="languages" v-model="newLanguageValue" />
+
+        <input @click="addLanguage()" type="submit" value="Ajouter" />
+
+        <p class="error-message">{{ errorMesssage }}</p>
+      </fieldset>
+
+      <table>
+        <thead>
+          <tr>
+            <th class="col-1">#</th>
+            <th class="col-2">Name</th>
+            <th class="col-3">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(language, index) in languages">
+            <td class="col-1">{{ index + 1 }}</td>
+            <td class="col-2">{{ language }}</td>
+            <td class="col-3"><button @click="removeLanguage(index)">Supprimer</button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="col-1" colspan="3">Total : {{ languages.length }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Vuejs CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <!-- Vue.JS code  -->
+    <script>
+      const app = Vue.createApp({
+        data() {
+          // VueJS props
+          return {
+            title: "Vuejs - Jour 1 / exercice 6",
+            messageForError: "Veuillez saisir un langage",
+            newLanguageValue: "",
+            languages: ["HTML", "CSS", "Javascript", "PHP", "MySQL"],
+            errorMesssage: "",
+          };
+        },
+
+        // VueJS lifecycle hook
+        mounted() {
+          const input = document.querySelector("#languages");
+          input.addEventListener("input", () => {
+            if (this.newLanguageValue) {
+              this.errorMesssage = "";
+            }
+
+            if (!this.newLanguageValue) {
+              this.errorMesssage = this.messageForError;
+            }
+          });
+        },
+
+        // VueJS methods
+        methods: {
+          addLanguage() {
+            if (!this.newLanguageValue) {
+              this.errorMesssage = this.messageForError;
+              return;
+            }
+
+            this.languages = [...this.languages, this.newLanguageValue];
+            this.newLanguageValue = "";
+          },
+
+          removeLanguage(index) {
+            this.languages = this.languages.filter((language, i) => i !== index);
+          },
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

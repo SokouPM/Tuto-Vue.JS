@@ -1,0 +1,78 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+}
+
+h1,
+h2,
+p {
+  text-align: center;
+}
+
+/* Form Styling */
+
+fieldset {
+  margin: 0 auto 1rem auto;
+  width: 60%;
+}
+
+fieldset * {
+  margin-bottom: 0.5rem;
+}
+
+legend {
+  font-size: 1.5rem;
+}
+
+input[type="text"] {
+  width: 80%;
+}
+
+input[type="submit"] {
+  width: 20%;
+}
+
+p.error-message {
+  color: red;
+}
+
+/* Table Styling */
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 60%;
+}
+
+table,
+tr {
+  border: 1px solid black;
+  text-align: center;
+}
+
+thead tr th,
+tfoot tr td {
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+td.col-1 {
+  width: 5%;
+}
+
+td.col-2 {
+  width: 90%;
+}
+
+td.col-3 {
+  width: 5%;
+}
+
+tfoot tr td {
+  text-align: right;
+  font-size: 1rem;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuejs - Jour 1 / exercice 1</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ title }}</h1>
+      <p>Nous sommes le {{ date }} et il est {{ time }}</p>
+    </div>
+
+    <!-- Vuejs CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <!-- Vue.JS code  -->
+    <script>
+      const app = Vue.createApp({
+        // VueJS props
+        data() {
+          return {
+            title: "Vuejs - Jour 1 / exercice 1",
+            date: new Date().toLocaleDateString(),
+            time: new Date().toLocaleTimeString(),
+          };
+        },
+
+        // VueJS  Lifecycle - mounted (DOM is ready)
+        mounted() {
+          setInterval(() => {
+            this.date = new Date().toLocaleDateString();
+            this.time = new Date().toLocaleTimeString();
+          }, 1000);
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

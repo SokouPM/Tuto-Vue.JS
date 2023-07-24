@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js 3 exercice numéro 2</title>
+</head>
+
+<body>
+    <div id="app">
+        <texte-maj :texte="defaultTexte"></texte-maj>
+    </div>
+
+    <!-- Mise en place de Vue.js 3 via le CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- Le code Vue.js -->
+    <script>
+        const TexteMaj = {
+            template: '<h2>{{ showTexteMaj }}</h2>',
+            props: ['texte'],
+            computed: {
+                showTexteMaj() {
+                    return this.texte.toUpperCase();
+                }
+            }, 
+        }
+        const app = Vue.createApp({
+            data() {
+                return {
+                    defaultTexte: 'Un texte à mettre en majuscule'
+                }
+            },
+            components: {
+                'texte-maj': TexteMaj
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+
+</html>

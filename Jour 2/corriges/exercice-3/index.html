@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js 3 exercice numéro 3</title>
+</head>
+
+<body>
+    <div id="app">
+        <card-identity>
+            <template v-slot:header-card="headerProps">
+                <header style="padding: 5px 20px; border-bottom: 1px solid black;">
+                    <h2>{{ headerProps.prenomPers }} {{ headerProps.nomPers }}</h2>
+                </header>
+            </template>
+            <template v-slot:footer-card="footerProps">
+                <footer style="padding: 5px 20px;">
+                    <p>{{ footerProps.mailPers }} - {{ footerProps.telephonePers }}</p>
+                </footer>
+            </template>
+        </card-identity>
+    </div>
+
+    <!-- Mise en place de Vue.js 3 via le CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- Le code Vue.js -->
+    <script>
+        const CardIdentity = {
+            data() {
+                return {
+                    personnes: [
+                        {
+                            prenom: 'Jérémy',
+                            nom: 'Dumaye',
+                            telephone: '0607080910',
+                            mail: 'dumaye.jeremy@gmail.com'
+                        },
+                        {
+                            prenom: 'Evan',
+                            nom: 'You',
+                            telephone: '0607080910',
+                            mail: 'evan.you@gmail.com'
+                        }
+                    ]
+                }
+            },
+            template: `<div v-for="personne in personnes" style="border: 1px solid black; border-radius: 15px; margin-bottom: 10px; width: 50%; margin-left: 25%;">
+                        <slot name="header-card" :prenom-pers="personne.prenom" :nom-pers="personne.nom"></slot>
+                        <slot name="footer-card" :telephone-pers="personne.telephone" :mail-pers="personne.mail"></slot>
+                    </div>`
+        }
+
+        const app = Vue.createApp({
+            components: {
+                'card-identity': CardIdentity
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+
+</html>

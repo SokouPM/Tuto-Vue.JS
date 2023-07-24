@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js 3 exercice numéro 2</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>Quel est votre compétence web préférée ?</p>
+        <select v-model="selectionLangage">
+            <option value="null" disabled selected hidden>Choisir votre compétence</option>
+            <option>Développement Vue.js</option>
+            <option>Développement Laravel PHP</option>
+            <option>Développement HTML/CSS</option>
+        </select>
+        
+        <div v-if="selectionLangage">
+            <p>Pourquoi ce choix ?</p>
+            <textarea cols="40" rows="7" placeholder="Mon choix..." v-model="description"></textarea>
+        </div>
+
+        <div v-if="selectionLangage && description">
+            <h2>Mes réponses :</h2>
+            <p>Ma compétence web préférée : <strong>{{ selectionLangage }}</strong></p>
+            <p>Mon explication :</p>
+            <p style="white-space: pre-line;">{{ description }}</p>
+        </div>
+    </div>
+
+    <!-- Mise en place de Vue.js 3 via le CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- Le code Vue.js -->
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    selectionLangage: null,
+                    description: '',
+                }
+            }
+        });
+        app.mount('#app');
+    </script>
+</body>
+
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuejs - Jour 1 / exercice 2</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ title }}</h1>
+
+      <fieldset class="form">
+        <legend>Formulaire de test VueJS</legend>
+
+        <div class="inline">
+          <label for="web-tech">Quelle est votre technologie web préférée ?</label>
+          <select name="web-tech" v-model="selected">
+            <option value="JavaScript 👍" selected>JavaScript 👍</option>
+            <option value="PHP 😐">PHP 😐</option>
+            <option value="Autres ⛔">Autres ⛔</option>
+          </select>
+        </div>
+
+        <textarea
+          name="why-tech"
+          class="why-tech"
+          rows="6"
+          maxlength="500"
+          v-model="why"
+          placeholder="Expliquez pourquoi vous avez choisi cette technologie web."
+        >
+          {{ why }}
+        </textarea>
+        <p class="count-chars">{{ count }} / 500</p>
+      </fieldset>
+
+      <div>
+        <p>Vous avez sélectioné : {{ selected }}</p>
+        <textarea rows="5" disabled>{{ why }}</textarea>
+      </div>
+    </div>
+
+    <!-- Vuejs CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <!-- Vue.JS code  -->
+    <script>
+      const app = Vue.createApp({
+        data() {
+          // VueJS props
+          return {
+            title: "Vuejs - Jour 1 / exercice 2",
+            selected: "JavaScript 👍",
+            why: `Expliquez pourquoi vous avez choisi cette technologie web.`,
+            count: 0,
+          };
+        },
+
+        // VueJS  Lifecycle - mounted (DOM is ready)
+        mounted() {
+          this.countChars();
+          document.querySelector(".why-tech").addEventListener("input", (e) => {
+            if (this.count > 500) {
+              this.why = this.why.slice(0, 500);
+            }
+
+            this.countChars();
+          });
+        },
+
+        // VueJS methods
+        methods: {
+          countChars() {
+            this.count = this.why.length;
+          },
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

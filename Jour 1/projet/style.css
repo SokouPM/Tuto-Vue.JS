@@ -1,0 +1,155 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+}
+
+h1,
+p {
+  text-align: center;
+}
+
+/* Form Styling */
+
+fieldset {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  width: 60%;
+  padding: 1% 2% 2%;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+fieldset legend {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+fieldset div.form-group {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+fieldset div.form-group label {
+  margin-bottom: 0.1rem;
+}
+
+fieldset div.form-group input,
+fieldset div.form-group select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+fieldset div.form-group input.error-field,
+fieldset div.form-group select.error-field {
+  border: 2px solid red !important;
+  animation: errorEntrance 0.2s ease 0s 1 normal forwards;
+}
+
+fieldset div.form-group select {
+  cursor: pointer;
+}
+
+fieldset p.error-message {
+  color: red;
+}
+
+fieldset input[type="submit"] {
+  width: 20%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+}
+
+fieldset input[type="submit"]:hover {
+  background-color: #4ea4ff;
+}
+
+fieldset input[type="submit"]:active {
+  background-color: #2890ff;
+}
+
+/* Table Styling */
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+  margin: 0 auto;
+  width: 80%;
+}
+
+table thead,
+table tfoot {
+  text-align: center;
+}
+
+table thead {
+  border-bottom: 1px solid #ccc;
+}
+
+table thead tr th,
+tfoot tr td {
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+td.col-1 {
+  width: 5%;
+}
+
+td.col-3 {
+  width: 20%;
+}
+
+table tfoot {
+  border-top: 1px solid #ccc;
+}
+
+table tfoot tr td {
+  text-align: right;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 1300px) {
+  table {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .mobile-overflow {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 1200px;
+  }
+}
+
+@keyframes errorEntrance {
+  0% {
+    transform: translateX(100px);
+  }
+
+  33% {
+    transform: translateX(-80px);
+  }
+
+  66% {
+    transform: translateX(40px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}

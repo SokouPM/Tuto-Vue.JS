@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js 3 exercice numéro 4</title>
+</head>
+
+<body>
+    <div id="app">
+        <img :src="urlImg" :width="widthImg" @click.left="changeWidth('add', 100)"
+            @click.right.prevent="changeWidth('remove', 100)" @click.middle="changeWidth('reset', 300)">
+    </div>
+
+    <!-- Mise en place de Vue.js 3 via le CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- Le code Vue.js -->
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    urlImg: 'https://cdn4.buysellads.net/uu/1/97758/1630009576-260x200px-5.png',
+                    widthImg: 300
+                }
+            },
+            methods: {
+                changeWidth(change, value) {
+                    switch (change) {
+                        case 'add':
+                            this.widthImg += value;
+                            break;
+                        case 'remove':
+                            if (this.widthImg <= value) {
+                                alert('Oups, on ne peut pas réduire plus !')
+                            } else {
+                                this.widthImg -= value;
+                            }
+                            break;
+                        case 'reset':
+                            this.widthImg = value;
+                            break;
+                        default:
+                            this.widthImg = value;
+                    }
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

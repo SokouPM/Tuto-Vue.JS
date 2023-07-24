@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuejs - Jour 1 / exercice 4</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ title }}</h1>
+
+      <div class="inline-centered">
+        <button @click="addWidth()">Largeur + 100</button>
+        <button @click="removeWidth()">Largeur - 100</button>
+        <button @click="resetWidth()">Reset</button>
+      </div>
+
+      <p class="width-text">Largeur actuelle : {{ imgWidth }} pixels</p>
+
+      <div class="inline-centered">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/512px-React-icon.svg.png?20220125121207"
+          :width="imgWidth"
+          alt="React forever 💘"
+        />
+      </div>
+    </div>
+
+    <!-- Vuejs CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <!-- Vue.JS code  -->
+    <script>
+      const app = Vue.createApp({
+        data() {
+          // VueJS props
+          return {
+            title: "Vuejs - Jour 1 / exercice 4",
+            imgWidth: 300,
+            originalWidth: 0,
+          };
+        },
+
+        // VueJS lifecycle hook
+        mounted() {
+          this.originalWidth = this.imgWidth;
+        },
+
+        // VueJS methods
+        methods: {
+          addWidth() {
+            if (this.imgWidth < 700) {
+              this.imgWidth += 100;
+            }
+          },
+
+          removeWidth() {
+            if (this.imgWidth > 100) {
+              this.imgWidth -= 100;
+            }
+          },
+
+          resetWidth() {
+            this.imgWidth = this.originalWidth;
+          },
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

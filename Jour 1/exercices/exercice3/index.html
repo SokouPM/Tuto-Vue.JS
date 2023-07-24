@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuejs - Jour 1 / exercice 3</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ title }}</h1>
+      <h2>Traduction du mot Bienvenue</h2>
+      <p class="big-text">{{ textToTranslate }}</p>
+
+      <div class="inline-centered">
+        <button @click="translate('english')">English</button>
+        <button @click="translate('español')">Español</button>
+        <button @click="translate('italiano')">Italiano</button>
+      </div>
+      <div class="inline-centered">
+        <button @click="translate('')">Reset</button>
+      </div>
+    </div>
+
+    <!-- Vuejs CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <!-- Vue.JS code  -->
+    <script>
+      const app = Vue.createApp({
+        data() {
+          // VueJS props
+          return {
+            title: "Vuejs - Jour 1 / exercice 3",
+            textToTranslate: "Bienvenue",
+          };
+        },
+
+        // VueJS methods
+        methods: {
+          translate(language) {
+            switch (language) {
+              case "english":
+                this.textToTranslate = "Welcome";
+                break;
+
+              case "español":
+                this.textToTranslate = "Bienvenido";
+                break;
+
+              case "italiano":
+                this.textToTranslate = "Benvenuto";
+                break;
+
+              default:
+                this.textToTranslate = "Bienvenue";
+                break;
+            }
+          },
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
