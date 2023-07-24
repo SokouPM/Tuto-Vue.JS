@@ -1,6 +1,6 @@
 # Tuto Vue.js
 
-## todo
+## Avancée
 
 - [x] Jour 1
   - [x] Exercice 1
