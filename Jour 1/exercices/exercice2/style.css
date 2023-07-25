@@ -35,6 +35,10 @@ textarea {
   margin-right: 1rem;
 }
 
+.why-result {
+  white-space: pre-wrap;
+}
+
 .count-chars {
   position: absolute;
   bottom: 20px;

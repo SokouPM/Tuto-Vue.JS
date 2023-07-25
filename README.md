@@ -11,7 +11,7 @@
   - [x] Exercice 6
   - [x] Projet
 - [ ] Jour 2
-  - [ ] Exercice 1
+  - [x] Exercice 1
   - [ ] Exercice 2
   - [ ] Exercice 3
   - [ ] Exercice 4

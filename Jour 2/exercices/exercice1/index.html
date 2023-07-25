@@ -3,13 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vuejs - Jour 1 / exercice 1</title>
+    <title>Vuejs - Jour 2 / exercice 1</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="app">
       <h1>{{ title }}</h1>
-      <p>Nous sommes le {{ date }} et il est {{ time }}</p>
+      <counter-global v-if="activeComponent === 'global'"></counter-global>
+      <counter-local v-else-if="activeComponent === 'local'"></counter-local>
+      <div v-else>Houston, nous avons un problème. aucun composant n'est chargé</div>
+
+      <div class="switch-button-container">
+        <button class="switch-button" @click="toggleComponent()">Passer sur le composant {{ noActiveComponent }}</button>
+      </div>
     </div>
 
     <!-- Vuejs CDN -->
@@ -17,25 +23,70 @@
 
     <!-- Vue.JS code  -->
     <script>
+      const LocalCounter = {
+        // VueJS local component props
+        data() {
+          return {
+            globalCount: 0,
+          };
+        },
+
+        // VueJS local component template
+        template: `
+          <div class="counter-form">
+            <h2>Compteur local</h2>
+            <div class="form-content">
+              <p>Compteur (local) : {{ globalCount }}</p>
+              <button @click="globalCount++">+</button>
+            </div>
+          </div>
+        `,
+      };
+
       const app = Vue.createApp({
         // VueJS props
         data() {
           return {
-            title: "Vuejs - Jour 1 / exercice 1",
-            date: new Date().toLocaleDateString(),
-            time: new Date().toLocaleTimeString(),
+            title: "Vuejs - Jour 2 / exercice 1",
+            activeComponent: "global",
+            noActiveComponent: "local",
           };
         },
 
-        // VueJS  Lifecycle - mounted (DOM is ready)
-        mounted() {
-          setInterval(() => {
-            this.date = new Date().toLocaleDateString();
-            this.time = new Date().toLocaleTimeString();
-          }, 1000);
+        // VueJS components
+        components: {
+          "counter-local": LocalCounter,
+        },
+
+        // VueJS methods
+        methods: {
+          toggleComponent() {
+            this.activeComponent = this.activeComponent === "global" ? "local" : "global";
+            this.noActiveComponent = this.activeComponent === "global" ? "local" : "global";
+          },
         },
       });
 
+      // VueJS global component
+      app.component("counter-global", {
+        // VueJS global component props
+        data() {
+          return {
+            localCount: 0,
+          };
+        },
+
+        // VueJS global component template
+        template: `
+          <div class="counter-form">
+            <h2>Compteur global</h2>
+            <div class="form-content">
+              <p>Compteur (global) : {{ localCount }}</p>
+              <button @click="localCount++">+</button>
+            </div>
+          </div>
+        `,
+      });
       app.mount("#app");
     </script>
   </body>

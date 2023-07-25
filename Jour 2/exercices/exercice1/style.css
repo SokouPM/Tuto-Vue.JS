@@ -4,6 +4,31 @@ body {
 }
 
 h1,
+h2,
 p {
   text-align: center;
+}
+
+h2 {
+  margin: 0 auto 10px;
+}
+
+.switch-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.counter-form {
+  padding: 10px 0;
+}
+
+.counter-form .form-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+}
+
+.counter-form .form-content p {
+  margin-right: 10px;
 }
