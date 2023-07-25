@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuejs - Jour 2 / exercice 3</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ title }}</h1>
+      <ul class="cards-list">
+        <card-identity>
+          <template v-slot:default="slotProps">
+            <header>
+              <p class="index"># {{ slotProps.index + 1 }}</p>
+              <p>{{ slotProps.user.firstname }} {{ slotProps.user.lastname }}</p>
+            </header>
+            <footer>
+              <p>{{ slotProps.user.phone }}</p>
+              <p>{{ slotProps.user.email }}</p>
+            </footer>
+          </template>
+        </card-identity>
+      </ul>
+    </div>
+
+    <!-- Vuejs CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <!-- Vue.JS code  -->
+    <script>
+      const CardIdentity = {
+        data() {
+          // VueJS local component props
+          return {
+            users: [
+              {
+                firstname: "John",
+                lastname: "Doe",
+                age: 42,
+                phone: "06 06 06 06 06",
+                email: "john.doe@mail.fr",
+              },
+              {
+                firstname: "Jane",
+                lastname: "Doe",
+                age: 42,
+                phone: "07 07 07 07 07",
+                email: "jane.doe@mail.fr",
+              },
+            ],
+          };
+        },
+        // VueJS local component template
+        template: `
+          <li class="card" v-for="(user, index) in users">
+            <slot :user="user" :index="index"></slot>
+          </li>
+        `,
+      };
+      const app = Vue.createApp({
+        // VueJS props
+        data() {
+          return {
+            title: "Vuejs - Jour 2 / exercice 3",
+          };
+        },
+
+        components: {
+          "card-identity": CardIdentity,
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

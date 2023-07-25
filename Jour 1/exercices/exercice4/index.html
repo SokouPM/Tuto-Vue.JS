@@ -10,12 +10,6 @@
     <div id="app">
       <h1>{{ title }}</h1>
 
-      <div class="inline-centered">
-        <button @click="addWidth()">Largeur + 100</button>
-        <button @click="removeWidth()">Largeur - 100</button>
-        <button @click="resetWidth()">Reset</button>
-      </div>
-
       <p class="width-text">Largeur actuelle : {{ imgWidth }} pixels</p>
 
       <div class="inline-centered">
@@ -23,6 +17,9 @@
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/512px-React-icon.svg.png?20220125121207"
           :width="imgWidth"
           alt="React forever 💘"
+          @click.left="addWidth()"
+          @click.right.prevent="removeWidth()"
+          @click.middle.prevent="resetWidth()"
         />
       </div>
     </div>
