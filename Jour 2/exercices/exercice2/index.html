@@ -3,12 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vuejs - Jour 2 / exercice 1</title>
+    <title>Vuejs - Jour 2 / exercice 2</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="app">
       <h1>{{ title }}</h1>
+      <div class="content">
+        <input type="text" v-model="textToMaj" />
+        <text-maj :text="textToMaj"></text-maj>
+      </div>
     </div>
 
     <!-- Vuejs CDN -->
@@ -16,12 +20,29 @@
 
     <!-- Vue.JS code  -->
     <script>
+      const TextMaj = {
+        // VueJS local component props
+        props: ["text"],
+
+        // VueJS local component template
+        template: `
+          <div class="text-maj">
+              <p>Texte en majuscule : {{ text.toUpperCase() }}</p>
+          </div>
+        `,
+      };
+
       const app = Vue.createApp({
         // VueJS props
         data() {
           return {
-            title: "Vuejs - Jour 2 / exercice 1",
+            title: "Vuejs - Jour 2 / exercice 2",
+            textToMaj: "React my 💘",
           };
+        },
+
+        components: {
+          "text-maj": TextMaj,
         },
 
         // VueJS methods

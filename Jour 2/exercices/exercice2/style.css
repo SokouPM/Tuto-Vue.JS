@@ -7,3 +7,10 @@ h1,
 p {
   text-align: center;
 }
+
+div.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
