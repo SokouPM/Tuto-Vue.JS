@@ -11,7 +11,8 @@
       <h1>{{ title }}</h1>
 
       <fieldset>
-        <legend>Ajouter un film à la liste</legend>
+        <legend v-if="indexOfMovieToModify  !== null">Modifier le film {{ moviesList[indexOfMovieToModify].title }}</legend>
+        <legend v-else>Ajouter un film à la liste</legend>
 
         <div class="form-group">
           <label for="title">Titre du film</label>
@@ -19,8 +20,8 @@
             type="text"
             id="title"
             name="title"
-            v-bind:class="errorMessage.length && !newMovieValues.title.length && 'error-field'"
-            v-model="newMovieValues.title"
+            v-model="formMovieValues.title"
+            :class="errorMessage.length && !formMovieValues.title.length && 'error-field'"
           />
         </div>
 
@@ -29,8 +30,8 @@
           <select
             name="year"
             id="year"
-            v-model="newMovieValues.year"
-            v-bind:class="errorMessage.length && !newMovieValues.year.toString().length && 'error-field'"
+            v-model="formMovieValues.year"
+            :class="errorMessage.length && !formMovieValues.year.toString().length && 'error-field'"
           >
             <option v-for="year in years" :value="year">{{ year }}</option>
           </select>
@@ -42,8 +43,8 @@
             type="text"
             id="director"
             name="director"
-            v-model="newMovieValues.director"
-            v-bind:class="errorMessage.length && !newMovieValues.director.length && 'error-field'"
+            v-model="formMovieValues.director"
+            :class="errorMessage.length && !formMovieValues.director.length && 'error-field'"
           />
         </div>
 
@@ -52,8 +53,8 @@
           <select
             name="category"
             id="category"
-            v-model="newMovieValues.category"
-            v-bind:class="errorMessage.length && !newMovieValues.category.length && 'error-field'"
+            v-model="formMovieValues.category"
+            :class="errorMessage.length && !formMovieValues.category.length && 'error-field'"
           >
             <option v-for="category in categories" :value="category">{{ category }}</option>
           </select>
@@ -61,7 +62,14 @@
 
         <p class="error-message">{{ errorMessage }}</p>
 
-        <input @click="addMovie()" type="submit" value="Ajouter un film" />
+        <input
+          v-if="indexOfMovieToModify  !== null"
+          class="btn btn-blue"
+          @click="addOrUpdateMovie(indexOfMovieToModify)"
+          type="submit"
+          value="Modifier un film"
+        />
+        <input v-else class="btn btn-green" @click="addOrUpdateMovie()" type="submit" value="Ajouter un film" />
       </fieldset>
 
       <div class="mobile-overflow">
@@ -73,23 +81,25 @@
               <th class="col-3">Année de sortie</th>
               <th class="col-4">Réalisateur</th>
               <th class="col-5">Categorie</th>
+              <th colspan="2">Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(film, index) in moviesList" :key="index">
-              <td class="col-1">{{ index + 1 }}</td>
+              <td class="col-1">{{ index }}</td>
               <td class="col-2">{{ film.title }}</td>
               <td class="col-3">{{ film.year }}</td>
               <td class="col-4">{{ film.director }}</td>
               <td class="col-5">{{ film.category }}</td>
+              <td class="col-6">
+                <button v-if="indexOfMovieToModify === index" class="btn btn-disabled">Modifier</button>
+                <button v-else class="btn btn-blue" @click="editThisMovie(index)">Modifier</button>
+              </td>
+              <td class="col-7">
+                <button class="btn btn-red" @click="deleteMovie(index)">Supprimer</button>
+              </td>
             </tr>
           </tbody>
-
-          <tfoot>
-            <tr>
-              <td class="col-1" colspan="5">Total : {{ moviesList.length }}</td>
-            </tr>
-          </tfoot>
         </table>
       </div>
     </div>
@@ -131,7 +141,7 @@
             "Autre 🤷‍♂️",
           ],
           years: [],
-          newMovieValues: {
+          formMovieValues: {
             title: "",
             year: new Date().getFullYear(),
             director: "",
@@ -152,6 +162,7 @@
               category: "Fantastique 🧙‍♂️",
             },
           ],
+          indexOfMovieToModify: null,
         };
       },
 
@@ -164,19 +175,20 @@
 
       // VueJS methods
       methods: {
-        addMovie() {
+        addOrUpdateMovie(index = null) {
           // Check if form values are not empty
-          if (this.newMovieValues.title && this.newMovieValues.year && this.newMovieValues.director && this.newMovieValues.category) {
-            // Add movie to the list
-            this.moviesList = [
-              ...this.moviesList, // old values
-              {
-                title: this.newMovieValues.title,
-                year: this.newMovieValues.year,
-                director: this.newMovieValues.director,
-                category: this.newMovieValues.category,
-              },
-            ];
+          if (this.formMovieValues.title && this.formMovieValues.year && this.formMovieValues.director && this.formMovieValues.category) {
+            // case of update
+            if (index) {
+              this.moviesList[index] = this.formMovieValues;
+
+              this.resetForm();
+
+              return;
+            }
+
+            // case of add
+            this.moviesList = [...this.moviesList, this.formMovieValues];
 
             this.resetForm();
 
@@ -186,16 +198,31 @@
           this.displayErrorMessage();
         },
 
+        // Choosen movie to edit
+        editThisMovie(index) {
+          this.indexOfMovieToModify = index;
+          this.formMovieValues = this.moviesList[index];
+        },
+
+        deleteMovie(index) {
+          this.moviesList = this.moviesList.filter((movie, movieIndex) => movieIndex !== index);
+        },
+
         displayErrorMessage() {
           this.errorMessage = "Veuillez remplir tous les champs du formulaire";
         },
 
         resetForm() {
-          this.newMovieValues.title = "";
-          this.newMovieValues.year = this.years[0];
-          this.newMovieValues.director = "";
-          this.newMovieValues.category = this.categories[0];
           this.errorMessage = "";
+          if (this.indexOfMovieToModify) {
+            this.indexOfMovieToModify = null;
+          }
+          this.formMovieValues = {
+            title: "",
+            year: new Date().getFullYear(),
+            director: "",
+            category: "Science-fiction 🚀",
+          };
         },
       },
     });

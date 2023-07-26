@@ -13,9 +13,9 @@
 - [ ] Jour 2
   - [x] Exercice 1
   - [x] Exercice 2
-  - [ ] Exercice 3
-  - [ ] Exercice 4
-  - [ ] Exercice 5
+  - [x] Exercice 3
+  - [x] Exercice 4
+  - [x] Exercice 5
   - [ ] Projet
 - [ ] Jour 3
   - [ ] Exercice 1
