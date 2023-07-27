@@ -179,7 +179,7 @@
           // Check if form values are not empty
           if (this.formMovieValues.title && this.formMovieValues.year && this.formMovieValues.director && this.formMovieValues.category) {
             // case of update
-            if (index) {
+            if (index === 0 || index) {
               this.moviesList[index] = this.formMovieValues;
 
               this.resetForm();

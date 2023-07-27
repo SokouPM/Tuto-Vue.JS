@@ -10,13 +10,13 @@
   - [x] Exercice 5
   - [x] Exercice 6
   - [x] Projet
-- [ ] Jour 2
+- [x] Jour 2
   - [x] Exercice 1
   - [x] Exercice 2
   - [x] Exercice 3
   - [x] Exercice 4
   - [x] Exercice 5
-  - [ ] Projet
+  - [x] Projet
 - [ ] Jour 3
   - [ ] Exercice 1
   - [ ] Exercice 2
