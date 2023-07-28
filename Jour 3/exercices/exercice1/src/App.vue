@@ -19,9 +19,7 @@ export default {
 </script>
 
 <template>
-  <div id="app">
-    <h1>{{ title }}</h1>
-  </div>
+  <h1>{{ title }}</h1>
 
   <div class="counter-buttons">
     <Counter1 />
