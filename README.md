@@ -18,7 +18,7 @@
   - [x] Exercice 5
   - [x] Projet
 - [ ] Jour 3
-  - [ ] Exercice 1
+  - [x] Exercice 1
   - [ ] Exercice 2
   - [ ] Exercice bonus
   - [ ] Projet
